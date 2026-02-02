@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/sign-up" method="post">
+        <label for="firstname">First Name:</label><br>
+        <input type="text" name="firstname" placeholder="John" required>
+        <br>
+        <label for="lastname">Last Name:</label><br>
+        <input type="text" name="lastname" placeholder="Doe" required>
+        <br>
+        <label for="username">Username:</label><br>
+        <input type="text" name="username" placeholder="johndoe@gmail.com" required>
+        <br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" max="15" required>
+        <br>
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" name="confirmPassword" max="15" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
