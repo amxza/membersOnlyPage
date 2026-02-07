@@ -1,3 +1,4 @@
+const db = require("../db/queries");
 
 
 
@@ -10,6 +11,17 @@ async function getSignUpForm(req, res) {
 }
 
 async function addSignUp(req, res) {
+    try{
+        const newFirstName = req.body.first_name;
+        const newLastName = req.body.last_name;
+        const newUsername = req.body.username;
+        const newPassword = req.body.password;
+        await db.getNewUser(newFirstName, newLastName, newUsername, newPassword);
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+    }
+        
     
 }
 
@@ -18,4 +30,5 @@ async function addSignUp(req, res) {
 module.exports = {
     mainPage,
     getSignUpForm,
+    addSignUp,
 }

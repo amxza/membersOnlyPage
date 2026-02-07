@@ -4,7 +4,7 @@ const userControl = require("../controllers/userControl");
 
 indexRoute.get("/", userControl.mainPage);
 indexRoute.get("/sign-up", userControl.getSignUpForm);
-indexRoute.post("/sign-up",userControl)
+indexRoute.post("/sign-up",userControl.addSignUp);
 
 
 module.exports = indexRoute;
