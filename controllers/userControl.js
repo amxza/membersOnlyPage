@@ -1,4 +1,6 @@
 const db = require("../db/queries");
+const {body, validationResult} = require("express-validator");
+
 
 
 
@@ -19,7 +21,7 @@ async function addSignUp(req, res) {
         await db.getNewUser(newFirstName, newLastName, newUsername, newPassword);
         res.redirect("/");
     } catch (error) {
-        console.log(error);
+        
     }
         
     
