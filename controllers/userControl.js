@@ -1,36 +1,53 @@
 const db = require("../db/queries");
 const {body, validationResult} = require("express-validator");
 
-
+const validateSignUp = [
+    body("password")
+    .isLength({min: 7})
+    .withMessage("Password must be more than 7 characters long."),
+    body("confirmPassword")
+    .custom((value, {req}) => {
+        if (value !== req.body.password) {
+            throw new Error("Passwords do not match...")
+        }
+        return true;
+    })
+];
 
 
 async function mainPage(req, res) {
     res.render("index");
 }
 
-async function getSignUpForm(req, res) {
+ async function getSignUpForm(req, res) {
     res.render("sign-up-form");
 }
 
+
 async function addSignUp(req, res) {
-    try{
-        const newFirstName = req.body.first_name;
-        const newLastName = req.body.last_name;
-        const newUsername = req.body.username;
-        const newPassword = req.body.password;
-        await db.getNewUser(newFirstName, newLastName, newUsername, newPassword);
-        res.redirect("/");
-    } catch (error) {
-        
-    }
-        
-    
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return res.status(400).render("sign-up-form", {
+                errors: errors.array(),
+            });
+        }
+        try {
+            const {first_name, last_name, username, password} = req.body;
+            await db.getNewUser(first_name, last_name, username, password);
+            res.redirect("/user-page");
+        } catch (error) {
+            res.status(500).render("sign-up-form", { errors: [{ msg: "Database error" }] });
+        }   
 }
 
-
+async function userPage(req, res) {
+    res.render("user-page");
+}
 
 module.exports = {
     mainPage,
     getSignUpForm,
+    validateSignUp,
     addSignUp,
+    userPage,
 }
