@@ -3,6 +3,8 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config();
+require("./config/passport");
+
 
 const app = express();
 const PORT = 3000;

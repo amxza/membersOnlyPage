@@ -16,7 +16,7 @@ const validateSignUp = [
 
 
 async function mainPage(req, res) {
-    res.render("index");
+    res.render("index", { user: req.user });
 }
 
  async function getSignUpForm(req, res) {
@@ -40,14 +40,18 @@ async function addSignUp(req, res) {
         }   
 }
 
-async function userPage(req, res) {
-    res.render("user-page");
+async function LogInPage(req, res) {
+    res.render("log-in");
 }
 
+async function getUserPage(req, res) {
+    res.render("user-page");
+}
 module.exports = {
     mainPage,
     getSignUpForm,
     validateSignUp,
     addSignUp,
-    userPage,
+    LogInPage,
+    getUserPage,
 }
