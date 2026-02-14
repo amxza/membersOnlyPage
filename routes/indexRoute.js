@@ -25,6 +25,9 @@ indexRoute.get("/log-out", (req, res, next) => {
   });
 });
 indexRoute.get("/user-page", userControl.getUserPage);
+indexRoute.get("/secret-code", userControl.getClubPage);
+indexRoute.post("/secret-code", userControl.membershipStatus);
+indexRoute.get("/messages", userControl.getPosts);
 
 
 

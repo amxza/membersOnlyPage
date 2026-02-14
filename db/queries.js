@@ -19,8 +19,21 @@ async function getNewUser(first_name, last_name, username, password) {
     
 }
 
+async function changeMembershipStatus(username) {
+    await pool.query(
+        "UPDATE user_details SET is_member = true WHERE username = $1"
+    ,[username]);
+}
+
+async function getAllMessages() {
+    const {rows} = await pool.query("SELECT title, text FROM user_posts");
+    return rows;
+}
+
 module.exports = {
     getUsersUsername,
     getUsersId,
-    getNewUser
+    getNewUser,
+    changeMembershipStatus,
+    getAllMessages,
 }
