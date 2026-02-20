@@ -26,8 +26,21 @@ async function changeMembershipStatus(username) {
 }
 
 async function getAllMessages() {
-    const {rows} = await pool.query("SELECT title, text FROM user_posts");
+    const { rows } = await pool.query(`
+        SELECT 
+            user_details.username, 
+            user_posts.title, 
+            user_posts.text, 
+            user_posts.timestamp 
+        FROM user_posts
+        INNER JOIN user_details ON user_posts.user_id = user_details.id
+        ORDER BY user_posts.timestamp DESC
+    `);
     return rows;
+}
+
+async function newMessage(title, text, userId) {
+    await pool.query("INSERT INTO user_posts (title, text, user_id) VALUES ($1, $2, $3)", [title, text, userId]);
 }
 
 module.exports = {
@@ -36,4 +49,5 @@ module.exports = {
     getNewUser,
     changeMembershipStatus,
     getAllMessages,
+    newMessage,
 }

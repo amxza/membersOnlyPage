@@ -76,6 +76,25 @@ async function getPosts(req, res) {
     }
 }
 
+async function getNewMessage(req, res) {
+    res.render("newMessage");
+}
+
+async function addPost(req, res) {
+    const { title, text } = req.body;
+    
+    // Passport provides the user object on the request
+    const userId = req.user.id; 
+
+    try {
+        await db.createNewPost(title, text, userId);
+        res.redirect("/user-page");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error saving post.");
+    }
+}
+
 module.exports = {
     mainPage,
     getSignUpForm,
@@ -86,4 +105,6 @@ module.exports = {
     getClubPage,
     membershipStatus,
     getPosts,
+    getNewMessage,
+    addPost,
 }

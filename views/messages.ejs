@@ -11,9 +11,13 @@
         <ul><% messages.forEach(message => { %> <li>
             <strong>Title: </strong> <%= message.title %> |
             <strong>Text: </strong> <%= message.text %> |
+            <strong>Date: </strong> <%= message.timestamp %> |
+            <strong>Author: </strong> <%= message.username %>
             </li>
     <%    }); %>
     </ul>
+    <br>
+    <button><a href="/newMessage">+ New Message</a></button>
 
 </body>
 </html>
